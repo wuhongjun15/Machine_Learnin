@@ -48,8 +48,10 @@ def svm(x, y, C):
     # 提出α和w
     a = []
     for i in sol['x']:
+        if i < 10e-5:  # 减小浮点误差，令10e-5以下的α都为0
+            i = 0.0
         a.append(i)
-    # print("α：", a)
+    # print("α：", a,)
     wt = array(zeros((1, 3)))
     for i in range(len(a)):
         wt += float(a[i]) * y[i] * array(x[i])
@@ -128,8 +130,8 @@ def test(xn, yn, k, C):
     print("当前C为：%f, 错误率：%.2f" % (C, count/n))
 
 
-n = 200
-k = 100  # 控制留“一”法的份数
+n = 50
+k = 20  # 控制留“一”法的份数
 (xn, yn) = create_data(n)
 # print("xn:", xn)
 # print("yn:", yn)
