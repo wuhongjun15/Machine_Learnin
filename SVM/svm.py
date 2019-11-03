@@ -1,5 +1,6 @@
 # 支持向量机 Support Vector Machine
 # 凸二次规划问题求解
+# @wuhongjun
 from numpy import *
 from cvxopt import solvers, matrix
 import matplotlib.pyplot as plt
