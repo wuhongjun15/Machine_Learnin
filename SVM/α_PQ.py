@@ -17,7 +17,7 @@ def create_data(num):
     for i in range(num):
         xn.append([40+random.random()*60, 40+random.random()*60, 1])
         yn.append(1.0)
-    print("已随机生成%d个先性可分的数据点" % (num*2))
+    print("已随机生成%d个数据点" % (num*2))
     return xn, yn
 
 
@@ -28,7 +28,6 @@ def svm(x, y, C):
     g1 = diag([1.0] * n).tolist()
     g2 = diag([-1.0] * n).tolist()
     G = matrix(r_[g1, g2])  # 矩阵上下拼接,一个控制α上限，一个控制α下限
-    # P = matrix(diag([1.0, 1.0, 1.0]))
     P = []
     for i in range(n):
         P.append([])
@@ -130,7 +129,7 @@ def test(xn, yn, k, C):
     print("当前C为：%f, 错误率：%.2f" % (C, count/n))
 
 
-n = 50
+n = 100
 k = 20  # 控制留“一”法的份数
 (xn, yn) = create_data(n)
 # print("xn:", xn)
