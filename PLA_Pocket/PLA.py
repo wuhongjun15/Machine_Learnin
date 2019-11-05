@@ -4,7 +4,7 @@ from numpy import *
 import matplotlib.pyplot as plt
 
 
-def draw():
+def draw(xn):
     # 先解决标题显示不出来的问题
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
@@ -12,16 +12,19 @@ def draw():
     x = array(xn)
     plt.scatter(x[1:50, 0], x[1:50, 1], color='blue', marker='o', label='+1')
     plt.scatter(x[50:, 0], x[50:, 1], color='red', marker='x', label='-1')
-    plt.xlabel('收入')
-    plt.ylabel('消费')
+    plt.xlabel('x0')
+    plt.ylabel('x1')
     plt.legend(loc='upper left')
-    plt.title('训练数据')
+    plt.title('PLA')
     # 划线
     x1 = 0
     y1 = (wt[0]*x1+wt[2]*(-1))*(-1)/wt[1]
     x2 = 100
     y2 = (wt[0] * x2 + wt[2] * (-1)) * (-1) / wt[1]
     plt.plot([x1, x2], [y1, y2], 'r')
+    # 控制坐标轴范围
+    plt.xlim(-10, 110)
+    plt.ylim(-10, 110)
     plt.show()
 
 
@@ -53,6 +56,6 @@ while True:
 
 # 第二次绘制 wt已经迭代
 print(count)
-draw()
+draw(xn)
 print(wt)
 print("haha")

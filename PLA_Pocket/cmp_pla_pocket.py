@@ -14,21 +14,22 @@ def count_wrong_point(x, y, w):
     return wrong_point
 
 
-def draw_point():
+def draw_point(xn):
     # 先解决标题显示不出来的问题
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
     # 画点
     x = array(xn)
-    plt.scatter(x[1:100, 0], x[1:100, 1], color='blue', marker='o', label='+1')
-    plt.scatter(x[100:, 0], x[100:, 1], color='red', marker='x', label='-1')
-    plt.xlabel('X1')
-    plt.ylabel('X2')
+    middle_index = int(0.5*len(x))
+    plt.scatter(x[0:middle_index, 0], x[0:middle_index, 1], color='blue', marker='o', label='+1')
+    plt.scatter(x[middle_index:, 0], x[middle_index:, 1], color='red', marker='x', label='-1')
+    plt.xlabel('X0')
+    plt.ylabel('X1')
     plt.legend(loc='upper left')
     plt.title('Data')
 
 
-def draw_line():
+def draw_line(wt):
     # 划线
     x1 = 0
     y1 = (wt[0]*x1+wt[2]*(-1))*(-1)/wt[1]
@@ -41,9 +42,9 @@ def draw_line():
     # plt.show()
 
 
-def draw():
-    draw_point()
-    draw_line()
+def draw(xn, wt):
+    draw_point(xn)
+    draw_line(wt)
 
 
 # training data
@@ -56,9 +57,9 @@ for i in range(n):
 for i in range(n):
     xn.append([60+random.random()*40, 40+random.random()*60, -1])
     yn.append(1)
-print("已随机生成%d个先性可分的数据点，如图point" % (n*2))
+print("已随机生成%d个线性可分的数据点，如图point" % (n*2))
 plt.figure("Point")
-draw_point()
+draw_point(xn)
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~pla~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 # wt[0]代表xn[0]的比重，wt[1]代表xn[1]的比重，wt[2]代表threshold
@@ -83,7 +84,7 @@ total_time = time_end - time_start
 # 第二次绘制 wt已经迭代
 print("PLA算法经过 %d 次迭代，用时 %f 秒，最后w为: %s,分割面如图PLA所示" % (count, total_time, wt))
 plt.figure("PLA")
-draw()
+draw(xn, wt)
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~pocket~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 wt = [1, 1, 1]
@@ -120,6 +121,6 @@ total_time = time_end - time_start
 wt = w0
 print("Pocket算法经过 %d 次迭代，用时 %f 秒，最后w为: %s，分割面如图Pocket所示。" % (t, total_time, wt))
 plt.figure("Pocket")
-draw()
+draw(xn, wt)
 plt.show()
 
