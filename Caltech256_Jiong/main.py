@@ -31,8 +31,9 @@ args = parser.parse_args()
 creat_test_data(TRAIN_IMAGE_PATH, TEST_IMAGE_PATH)
 
 # 将图像处理成可用数据
-train_data = DataPreprocess(TRAIN_IMAGE_PATH, args.BATCH).image2data()
-test_data = DataPreprocess(TEST_IMAGE_PATH, args.BATCH).image2data()
+# Category_num表示训练数据集中的类别个数，对于caltech256来说，应该有257个类别
+train_data, category_num = DataPreprocess(TRAIN_IMAGE_PATH, args.BATCH).image2data()
+test_data, _ = DataPreprocess(TEST_IMAGE_PATH, args.BATCH).image2data()
 
 # 是否加载之前保存模型模型
 if args.LOAD_MODEL and os.path.isfile(os.path.join(MODEL_PATH, Torch_MODEL_NAME)):
@@ -47,7 +48,7 @@ else:
             param.requires_grad = False
         num_features = cnn.classifier.in_features
         # 更改最后一层
-        cnn.classifier = nn.Linear(num_features, 257)
+        cnn.classifier = nn.Linear(num_features, category_num)
     else:
         cnn = myModel()  # 暂时还没写更好的
 

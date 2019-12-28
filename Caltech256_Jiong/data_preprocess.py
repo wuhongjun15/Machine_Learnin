@@ -24,6 +24,6 @@ class DataPreprocess(object):
         # torch.utils.data.DataLoader类可以将list类型的输入数据封装成Tensor数据格式，以备模型使用。
         # 数据量太大，要分成批次进行处理
         # 创建DataLoader迭代器
-        data_loader = DataLoader(dataset, batch_size=self.batch, shuffle=True, pin_memory = True)
-        return data_loader
-
+        data_loader = DataLoader(dataset, batch_size=self.batch, shuffle=True, pin_memory=True)
+        category_num = int(len(dataset.class_to_idx))
+        return data_loader, category_num
